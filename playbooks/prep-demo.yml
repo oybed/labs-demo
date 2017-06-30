@@ -45,6 +45,14 @@
   - role: createjenkinsjob
   # - role: seedjenkins
 
+- name: "Record stats"
+  hosts: dbserver
+  become: yes
+  vars:
+    labs_username: "{{ demo_username }}"
+  roles:
+    - labs-stats
+
 - name: "Demo prep clean-up"
   hosts: localhost
   roles:

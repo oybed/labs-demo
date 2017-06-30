@@ -1,0 +1,13 @@
+---
+- name: 'Install mongodb'
+  include: configure_mongodb.yml
+
+- name: 'Update demo runs count'
+  command: "./update_db.py update_runs_count"
+  args:
+    chdir: '{{ role_path }}/files'
+
+- name: 'Update number of runs per user'
+  command: "./update_db.py update_count_per_user {{ labs_username }}"
+  args:
+    chdir: '{{ role_path }}/files'
