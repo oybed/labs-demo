@@ -1,0 +1,11 @@
+---
+# This test covers the full feature set provided by the role
+
+- name: Update Labs Stats
+  hosts: dbserver
+  become: yes
+  vars:
+    labs_username: testuser
+
+  roles: 
+    - labs-stats
