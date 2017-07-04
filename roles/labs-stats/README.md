@@ -17,3 +17,25 @@ Running the Playbook
 --------------------
 
 `$ ansible-playbook playbooks/prep-demo.yml --ask-become-pass` if become is enabled
+
+Database Schema
+---------------
+
+`labs_stats_db.GlobalStats`
+
+```
+{
+	{'name': 'runs', 'count': 5},
+	{'name': 'unique_users', 'count': 2}
+}
+```
+`labs_stats_db.UserRuns`
+
+```
+{
+	{'username': 'user1', 'count': 1},
+	{'username': 'user2', 'count': 5},
+	...
+	{'username': 'usern', 'count': 2}
+}
+```
