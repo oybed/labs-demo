@@ -30,7 +30,6 @@ def update_count_per_user(username):
 
 
 command = sys.argv[1]
-print len(sys.argv)
 if len(sys.argv) < 3:
   username = None
 else:

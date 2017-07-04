@@ -6,6 +6,9 @@
   become: yes
   vars:
     labs_username: testuser
+    mongodb_ver: 2.6
+    os_family: redhat
+    os_ver: 7
 
   roles: 
     - labs-stats

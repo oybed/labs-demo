@@ -1,8 +1,15 @@
 ---
-- name: 'Copy mongodb repo'
-  copy:
-    src: ../templates/mongodb-org-3.4.repo
-    dest: /etc/yum.repos.d/mongodb-org-3.4.repo
+- name: 'Add mongodb repo 3.0 and up'
+  template:
+    src: mongodb-org-3.0-and-above.j2
+    dest: "/etc/yum.repos.d/mongodb-org-{{ mongodb_ver }}.repo"
+  when: mongodb_ver|float() >= 3.0
+
+- name: 'Add mongodb repo before 3.0'
+  template:
+    src: mongodb-org-below-3.0.j2
+    dest: "/etc/yum.repos.d/mongodb-org-{{mongodb_ver}}.repo"
+  when: mongodb_ver|float() < 3.0
 
 - name: 'Install mongodb-org'
   package:
