@@ -20,7 +20,7 @@ def update_count_per_user(username):
   unique_users_count = db.GlobalStats.find({'name': 'unique_users'})
 
   if unique_users_count.count() == 0:
-    db.GlobalStats.insert({'name': 'unique_users', 'count': 1})
+    db.GlobalStats.insert({'name': 'unique_users', 'count': 0})
 
   if user_runs_count.count() == 0:
     db.UserRuns.insert({'username': username, 'count': 1})
