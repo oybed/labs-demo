@@ -1,0 +1,72 @@
+---
+kind: List
+apiVersion: v1
+metadata: {}
+items:
+- apiVersion: v1
+  kind: Namespace
+  metadata:
+    annotations:
+      openshift.io/description: ''
+      openshift.io/display-name: Test ({{ demo_projectname }})
+      openshift.io/requester: {{ demo_username }}
+    creationTimestamp: 
+    name: {{ demo_projectname }}-test
+  spec: {}
+  status: {}
+- apiVersion: v1
+  groupNames:
+  - system:serviceaccounts:{{ demo_projectname }}-test
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: system:image-pullers
+    namespace: {{ demo_projectname }}-test
+  roleRef:
+    name: system:image-puller
+  subjects:
+  - kind: SystemGroup
+    name: system:serviceaccounts:{{ demo_projectname }}-test
+  userNames: 
+- apiVersion: v1
+  groupNames: 
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: system:image-builders
+    namespace: {{ demo_projectname }}-test
+  roleRef:
+    name: system:image-builder
+  subjects:
+  - kind: ServiceAccount
+    name: builder
+  userNames:
+  - system:serviceaccount:{{ demo_projectname }}-test:builder
+- apiVersion: v1
+  groupNames: 
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: system:deployers
+    namespace: {{ demo_projectname }}-test
+  roleRef:
+    name: system:deployer
+  subjects:
+  - kind: ServiceAccount
+    name: deployer
+  userNames:
+  - system:serviceaccount:{{ demo_projectname }}-test:deployer
+- apiVersion: v1
+  groupNames: 
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: admin
+    namespace: {{ demo_projectname }}-test
+  roleRef:
+    name: admin
+  subjects:
+  - kind: User
+    name: {{ demo_username }}
+  userNames:
+  - {{ demo_username }}

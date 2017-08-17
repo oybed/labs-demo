@@ -15,4 +15,8 @@
     state: absent
     path: "{{ demo_jenkinsfile_dir }}"
 
+- name: "Remove temporary demo Template Files directory"
+  file:
+    state: absent
+    path: "{{ demo_template_dir }}"
 

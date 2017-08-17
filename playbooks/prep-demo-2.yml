@@ -1,0 +1,39 @@
+---
+- name: "Prepare for demo execution"
+  hosts: localhost
+  vars:
+  # - demo_hosting_api_fqdn: - e.g.: "master1.demo.example.com:8443"
+  # - demo_hosting_env:      - e.g.: "demo.example.com" 
+  # - demo_projectname:      - e.g.: "companyname"  
+  # - demo_scm_url:          - e.g.: "https://github.com/rht-labs/infographic"
+  # - demo_username:         - e.g.: "username"
+  # - demo_password:         - e.g.: "password"
+  # - demo_token:            - e.g.: "OpenShift token"
+  - openshift_login_url: "{{ demo_hosting_api_fqdn }}"
+  - openshift_user: "{{ demo_username }}"
+  - openshift_token: "{{ demo_token }}"
+  roles:
+  - role: common
+  - role: ../roles/ansible-stacks/roles/openshift-login
+
+- name: "Create the demo Jenkinsfile"
+  hosts: localhost
+  roles:
+  - role: jenkinsfile
+
+- name: "Create the demo inventory"
+  hosts: localhost
+  roles:
+  - role: createinventory 
+
+- name: "Seed the cluster"
+  vars:
+    openshift_user: "{{ demo_username }}"
+    openshift_token: "{{ demo_token }}"
+  include: ../roles/casl-ansible/playbooks/openshift-cluster-seed.yml
+
+# - name: "Demo prep clean-up"
+#  hosts: localhost
+#  roles:
+#  - role: cleanup
+

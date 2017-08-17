@@ -1,0 +1,55 @@
+---
+
+- name: "Populate the namespace files with the correct values"
+  template: 
+    src: demo-namespaces.j2
+    dest: "{{ demo_template_dir }}/demo-namespaces.yml"
+
+- name: "Populate the application build template"
+  template: 
+    src: build-template.j2
+    dest: "{{ demo_template_dir }}/build-template.yml"
+
+- name: "Populate the application build parameters"
+  template: 
+    src: build-params.j2
+    dest: "{{ demo_template_dir }}/build-params"
+
+- name: "Populate the application deployment template"
+  copy: 
+    src: "deploy-template.yml"
+    dest: "{{ demo_template_dir }}/deploy-template.yml"
+
+- name: "Populate the application deployment parameters"
+  template: 
+    src: deploy-params.j2
+    dest: "{{ demo_template_dir }}/{{ pipeline_stage }}-deploy-params"
+  loop_control:
+    loop_var: pipeline_stage
+  with_items:
+  - 'dev'
+  - 'test'
+  - 'uat'
+
+- name: "Set Up the correct inventory"
+  set_fact: 
+    openshift_cluster_content:
+    - object: namespace
+      content: 
+      - file: "{{ demo_template_dir }}/demo-namespaces.yml"
+    - object: builds
+      content:
+      - template: "{{ demo_template_dir }}/build-template.yml"
+        namespace: "{{ demo_projectname }}-pipeline"
+        params: "{{ demo_template_dir }}/build-params"
+    - object: deployments
+      content: 
+      - template: "{{ demo_template_dir }}/deploy-template.yml"
+        namespace: "{{ demo_projectname }}-dev"
+        params: "{{ demo_template_dir }}/dev-deploy-params"
+      - template: "{{ demo_template_dir }}/deploy-template.yml"
+        namespace: "{{ demo_projectname }}-test"
+        params: "{{ demo_template_dir }}/test-deploy-params"
+      - template: "{{ demo_template_dir }}/deploy-template.yml"
+        namespace: "{{ demo_projectname }}-uat"
+        params: "{{ demo_template_dir }}/uat-deploy-params"

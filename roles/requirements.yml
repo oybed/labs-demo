@@ -1,3 +1,5 @@
 
-# From: 'ansible-stacks'
+# From: 'casl-ansible'
+- src: https://github.com/redhat-cop/casl-ansible
+
 - src: https://github.com/rht-labs/ansible-stacks

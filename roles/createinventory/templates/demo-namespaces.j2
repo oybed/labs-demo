@@ -1,0 +1,273 @@
+---
+kind: List
+apiVersion: v1
+metadata: {}
+items:
+- apiVersion: v1
+  kind: Namespace
+  metadata:
+    annotations:
+      openshift.io/description: ''
+      openshift.io/display-name: Demo Pipeline ({{ demo_projectname }})
+      openshift.io/requester: {{ demo_username }}
+    creationTimestamp: 
+    name: {{ demo_projectname }}-pipeline
+  spec: {}
+  status: {}
+- apiVersion: v1
+  groupNames:
+  - system:serviceaccounts:{{ demo_projectname }}-pipeline
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: system:image-pullers
+    namespace: {{ demo_projectname }}-pipeline
+  roleRef:
+    name: system:image-puller
+  subjects:
+  - kind: SystemGroup
+    name: system:serviceaccounts:{{ demo_projectname }}-pipeline
+  userNames: 
+- apiVersion: v1
+  groupNames: 
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: system:image-builders
+    namespace: {{ demo_projectname }}-pipeline
+  roleRef:
+    name: system:image-builder
+  subjects:
+  - kind: ServiceAccount
+    name: builder
+  userNames:
+  - system:serviceaccount:{{ demo_projectname }}-pipeline:builder
+- apiVersion: v1
+  groupNames: 
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: system:deployers
+    namespace: {{ demo_projectname }}-pipeline
+  roleRef:
+    name: system:deployer
+  subjects:
+  - kind: ServiceAccount
+    name: deployer
+  userNames:
+  - system:serviceaccount:{{ demo_projectname }}-pipeline:deployer
+- apiVersion: v1
+  groupNames: 
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: admin
+    namespace: {{ demo_projectname }}-pipeline
+  roleRef:
+    name: admin
+  subjects:
+  - kind: User
+    name: {{ demo_username }}
+  userNames:
+  - {{ demo_username }}
+- apiVersion: v1
+  kind: Namespace
+  metadata:
+    annotations:
+      openshift.io/description: ''
+      openshift.io/display-name: Demo Development Stage ({{ demo_projectname }})
+      openshift.io/requester: {{ demo_username }}
+    creationTimestamp: 
+    name: {{ demo_projectname }}-dev
+  spec: {}
+  status: {}
+- apiVersion: v1
+  groupNames:
+  - system:serviceaccounts:{{ demo_projectname }}-dev
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: system:image-pullers
+    namespace: {{ demo_projectname }}-dev
+  roleRef:
+    name: system:image-puller
+  subjects:
+  - kind: SystemGroup
+    name: system:serviceaccounts:{{ demo_projectname }}-dev
+  userNames: 
+- apiVersion: v1
+  groupNames: 
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: system:image-builders
+    namespace: {{ demo_projectname }}-dev
+  roleRef:
+    name: system:image-builder
+  subjects:
+  - kind: ServiceAccount
+    name: builder
+  userNames:
+  - system:serviceaccount:{{ demo_projectname }}-dev:builder
+- apiVersion: v1
+  groupNames: 
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: system:deployers
+    namespace: {{ demo_projectname }}-dev
+  roleRef:
+    name: system:deployer
+  subjects:
+  - kind: ServiceAccount
+    name: deployer
+  userNames:
+  - system:serviceaccount:{{ demo_projectname }}-dev:deployer
+- apiVersion: v1
+  groupNames: 
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: admin
+    namespace: {{ demo_projectname }}-dev
+  roleRef:
+    name: admin
+  subjects:
+  - kind: User
+    name: {{ demo_username }}
+  userNames:
+  - {{ demo_username }}
+- apiVersion: v1
+  kind: Namespace
+  metadata:
+    annotations:
+      openshift.io/description: ''
+      openshift.io/display-name: Demo Test Stage ({{ demo_projectname }})
+      openshift.io/requester: {{ demo_username }}
+    creationTimestamp: 
+    name: {{ demo_projectname }}-test
+  spec: {}
+  status: {}
+- apiVersion: v1
+  groupNames:
+  - system:serviceaccounts:{{ demo_projectname }}-test
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: system:image-pullers
+    namespace: {{ demo_projectname }}-test
+  roleRef:
+    name: system:image-puller
+  subjects:
+  - kind: SystemGroup
+    name: system:serviceaccounts:{{ demo_projectname }}-test
+  userNames: 
+- apiVersion: v1
+  groupNames: 
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: system:image-builders
+    namespace: {{ demo_projectname }}-test
+  roleRef:
+    name: system:image-builder
+  subjects:
+  - kind: ServiceAccount
+    name: builder
+  userNames:
+  - system:serviceaccount:{{ demo_projectname }}-test:builder
+- apiVersion: v1
+  groupNames: 
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: system:deployers
+    namespace: {{ demo_projectname }}-test
+  roleRef:
+    name: system:deployer
+  subjects:
+  - kind: ServiceAccount
+    name: deployer
+  userNames:
+  - system:serviceaccount:{{ demo_projectname }}-test:deployer
+- apiVersion: v1
+  groupNames: 
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: admin
+    namespace: {{ demo_projectname }}-test
+  roleRef:
+    name: admin
+  subjects:
+  - kind: User
+    name: {{ demo_username }}
+  userNames:
+  - {{ demo_username }}
+- apiVersion: v1
+  kind: Namespace
+  metadata:
+    annotations:
+      openshift.io/description: ''
+      openshift.io/display-name: Demo UAT Stage ({{ demo_projectname }})
+      openshift.io/requester: {{ demo_username }}
+    creationTimestamp: 
+    name: {{ demo_projectname }}-uat
+  spec: {}
+  status: {}
+- apiVersion: v1
+  groupNames:
+  - system:serviceaccounts:{{ demo_projectname }}-uat
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: system:image-pullers
+    namespace: {{ demo_projectname }}-uat
+  roleRef:
+    name: system:image-puller
+  subjects:
+  - kind: SystemGroup
+    name: system:serviceaccounts:{{ demo_projectname }}-uat
+  userNames: 
+- apiVersion: v1
+  groupNames: 
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: system:image-builders
+    namespace: {{ demo_projectname }}-uat
+  roleRef:
+    name: system:image-builder
+  subjects:
+  - kind: ServiceAccount
+    name: builder
+  userNames:
+  - system:serviceaccount:{{ demo_projectname }}-uat:builder
+- apiVersion: v1
+  groupNames: 
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: system:deployers
+    namespace: {{ demo_projectname }}-uat
+  roleRef:
+    name: system:deployer
+  subjects:
+  - kind: ServiceAccount
+    name: deployer
+  userNames:
+  - system:serviceaccount:{{ demo_projectname }}-uat:deployer
+- apiVersion: v1
+  groupNames: 
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: 
+    name: admin
+    namespace: {{ demo_projectname }}-uat
+  roleRef:
+    name: admin
+  subjects:
+  - kind: User
+    name: {{ demo_username }}
+  userNames:
+  - {{ demo_username }}
