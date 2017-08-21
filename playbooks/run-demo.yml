@@ -32,8 +32,8 @@
     openshift_token: "{{ demo_token }}"
   include: ../roles/casl-ansible/playbooks/openshift-cluster-seed.yml
 
-# - name: "Demo prep clean-up"
-#  hosts: localhost
-#  roles:
-#  - role: cleanup
+- name: "Demo prep clean-up"
+  hosts: localhost
+  roles:
+  - role: cleanup
 

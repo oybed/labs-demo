@@ -2,8 +2,8 @@
 
 - name: "Populate the namespace files with the correct values"
   template: 
-    src: demo-namespaces.j2
-    dest: "{{ demo_template_dir }}/demo-namespaces.yml"
+    src: demo-projectrequests.j2
+    dest: "{{ demo_template_dir }}/demo-projectrequests.yml"
 
 - name: "Populate the application build template"
   template: 
@@ -34,9 +34,9 @@
 - name: "Set Up the correct inventory"
   set_fact: 
     openshift_cluster_content:
-    - object: namespace
+    - object: projectrequest
       content: 
-      - file: "{{ demo_template_dir }}/demo-namespaces.yml"
+      - file: "{{ demo_template_dir }}/demo-projectrequests.yml"
     - object: builds
       content:
       - template: "{{ demo_template_dir }}/build-template.yml"

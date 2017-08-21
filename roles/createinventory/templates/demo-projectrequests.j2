@@ -1,0 +1,24 @@
+---
+apiVersion: v1
+kind: List
+items:
+- kind: ProjectRequest
+  apiVersion: v1
+  metadata:
+    name: {{ demo_projectname }}-pipeline
+  displayName: A Demo Pipeline ({{ demo_projectname }})
+- kind: ProjectRequest
+  apiVersion: v1
+  metadata:
+    name: {{ demo_projectname }}-dev
+  displayName: Demo Development Stage ({{ demo_projectname }})
+- kind: ProjectRequest
+  apiVersion: v1
+  metadata:
+    name: {{ demo_projectname }}-test
+  displayName: Demo Test Stage ({{ demo_projectname }})
+- kind: ProjectRequest
+  apiVersion: v1
+  metadata:
+    name: {{ demo_projectname }}-uat
+  displayName: Demo UAT Stage ({{ demo_projectname }})
