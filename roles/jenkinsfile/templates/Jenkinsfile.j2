@@ -31,14 +31,6 @@ node('') {
         openshiftVerifyDeployment (apiURL: \"${env.OPENSHIFT_API_URL}\", authToken: \"${env.OCP_TOKEN}\", depCfg: \"${env.APP_NAME}\", namespace: \"${env.TEST_PROJECT}\", verifyReplicaCount: true)
     }
 
-    stage ('Deploy to Security Test') {
-        input \"Promote Application to Security Test?\"
-
-        openshiftTag (apiURL: \"${env.OPENSHIFT_API_URL}\", authToken: \"${env.OCP_TOKEN}\", destStream: \"${env.APP_NAME}\", destTag: 'latest', destinationAuthToken: \"${env.OCP_TOKEN}\", destinationNamespace: \"${env.SEC_TEST_PROJECT}\", namespace: \"${env.DEV_PROJECT}\", srcStream: \"${env.APP_NAME}\", srcTag: 'latest')
-
-        openshiftVerifyDeployment (apiURL: \"${env.OPENSHIFT_API_URL}\", authToken: \"${env.OCP_TOKEN}\", depCfg: \"${env.APP_NAME}\", namespace: \"${env.SEC_TEST_PROJECT}\", verifyReplicaCount: true)
-    }
-
     stage ('Deploy to UAT') {
         input \"Promote Application to UAT?\"
 
