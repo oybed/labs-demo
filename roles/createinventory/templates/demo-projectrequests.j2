@@ -20,5 +20,10 @@ items:
 - kind: ProjectRequest
   apiVersion: v1
   metadata:
+    name: {{ demo_projectname }}-sec-test
+  displayName: Demo Security Test Stage ({{ demo_projectname }})
+- kind: ProjectRequest
+  apiVersion: v1
+  metadata:
     name: {{ demo_projectname }}-uat
   displayName: Demo UAT Stage ({{ demo_projectname }})

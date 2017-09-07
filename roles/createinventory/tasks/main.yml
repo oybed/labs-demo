@@ -1,6 +1,6 @@
 ---
 
-- name: "Populate the namespace files with the correct values"
+- name: "Populate the projectrequests files with the correct values"
   template: 
     src: demo-projectrequests.j2
     dest: "{{ demo_template_dir }}/demo-projectrequests.yml"
@@ -29,6 +29,7 @@
   with_items:
   - 'dev'
   - 'test'
+  - 'sec-test'
   - 'uat'
 
 - name: "Set Up the correct inventory"
@@ -50,6 +51,9 @@
       - template: "{{ demo_template_dir }}/deploy-template.yml"
         namespace: "{{ demo_projectname }}-test"
         params: "{{ demo_template_dir }}/test-deploy-params"
+      - template: "{{ demo_template_dir }}/deploy-template.yml"
+        namespace: "{{ demo_projectname }}-sec-test"
+        params: "{{ demo_template_dir }}/sec-test-deploy-params"
       - template: "{{ demo_template_dir }}/deploy-template.yml"
         namespace: "{{ demo_projectname }}-uat"
         params: "{{ demo_template_dir }}/uat-deploy-params"
